@@ -26,11 +26,6 @@ $(document).ready(function() {
     $('[data-toggle="popover"]').popover();
 });
 
-// require the JavaScript
-require('bootstrap-star-rating');
-// require 2 CSS files needed
-require('bootstrap-star-rating/css/star-rating.css');
-require('bootstrap-star-rating/themes/krajee-svg/theme.css');
 
 import 'bootstrap/js/dist/util';
 import 'bootstrap/js/dist/dropdown';

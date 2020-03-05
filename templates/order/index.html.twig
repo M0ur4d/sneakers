@@ -6,6 +6,7 @@
 <div class="container">
     <br>
 <div class="row">
+    {% if app.session.get('panier')  %}
     <table class="table table-bordered table-primary">
         <thead>
         <tr>
@@ -21,6 +22,7 @@
         </tr>
         </thead>
         <tbody>
+
             {% set totalPanier = 0 %}
             {% for key, item in app.session.get('panier')%}
             <tr>
@@ -46,6 +48,9 @@
         </tbody>
 
     </table>
+    {% else %}
+        <img src="{{ asset('/photos/panier-vide.gif') }}" >
+    {% endif %}
 </div>
 </div>
 

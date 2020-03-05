@@ -35,16 +35,17 @@ class AppFixtures extends Fixture
         $catRepo = $manager -> getRepository(Category::class);
         $productRepo = $manager -> getRepository(Product::class);
 
+        // Membres
         for($i = 1; $i <= 20; $i++){
             $user = new User;
-            $user -> setUsername($faker -> username);
+            $user -> setUsername('user'.$i);
             $user -> setLastname($faker -> lastName);
             $user -> setEmail($faker -> email);
             $user -> setFirstname($faker -> firstName);
             $user -> setSexe($faker -> randomElement(['m', 'f']));
             $user -> setCity($faker -> city);
             $user -> setAddress($faker -> address);
-            $user -> setPassword($this->encoder->encodePassword($user, '123456'));
+            $user -> setPassword($this->encoder->encodePassword($user, 'user'.$i));
             $user -> setZipCode(rand(11111, 99999));
             $user -> setBirthday($faker -> dateTimeBetween('-50 years', '-16 years', 'Europe/paris'));
             $user -> setRegisterDate(new \DateTime('now'));
@@ -54,8 +55,26 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
+        // Admins
+        for($i = 1; $i <= 5; $i++){
+            $user = new User;
+            $user -> setUsername('admin'.$i);
+            $user -> setLastname($faker -> lastName);
+            $user -> setEmail($faker -> email);
+            $user -> setFirstname($faker -> firstName);
+            $user -> setSexe($faker -> randomElement(['m', 'f']));
+            $user -> setCity($faker -> city);
+            $user -> setAddress($faker -> address);
+            $user -> setPassword($this->encoder->encodePassword($user, 'admin'.$i));
+            $user -> setZipCode(rand(11111, 99999));
+            $user -> setBirthday($faker -> dateTimeBetween('-50 years', '-16 years', 'Europe/paris'));
+            $user -> setRegisterDate(new \DateTime('now'));
+            $user -> setTel($faker -> e164PhoneNumber);
+            $user -> setRole('ROLE_ADMIN');
 
-
+            $manager -> persist($user);
+        }
+        $manager->flush();
 
 
 
@@ -63,20 +82,21 @@ class AppFixtures extends Fixture
             $product  = new Product;
 
 //            $product -> setTitle(implode(' ', $faker -> words(3)));
-            $product -> setTitle('Air Jordan'.$i);
+            $product -> setTitle('Air Jordan '.$i);
             $product -> setPrice($faker -> randomFloat(2, 120, 280));
             $product -> setStock(rand(1, 150));
-            $product -> setBrand($faker -> randomElement(['Jordan1', 'Jordan2', 'Jordan3', 'Jordan3', 'Jordan4', 'Jordan5', 'Jordan6']));
+            $product -> setBrand($faker -> randomElement(['Jordan 1', 'Jordan 2', 'Jordan 3', 'Jordan 4', 'Jordan 5', 'Jordan 6', 'Jordan 7']));
             $product -> setDescription($faker -> text(200));
             $product -> setImage('product_' . $i . '.jpg');
             $product -> setSize($faker -> randomElement(['4', '5', '6', '7', '8', '9', '10']) . $faker -> randomElement(['', '.5']));
             $product -> setColor($faker -> randomElement(['Blanc', 'Rouge', 'Noir', 'Beige', 'Vert', 'Rose']));
 
             $manager -> persist($product);
+
         }
         $manager->flush();
 
-        $cat = array('Jordan1', 'Jordan2', 'Jordan3', 'Jordan3', 'Jordan4', 'Jordan5', 'Jordan6');
+        $cat = array('Jordan 1', 'Jordan 2', 'Jordan 3', 'Jordan 4', 'Jordan 5', 'Jordan 6', 'Jordan 7');
 
         foreach($cat as $c){
             $z = rand(1, 5);
@@ -107,12 +127,6 @@ class AppFixtures extends Fixture
             $manager -> persist($p);
         }
         $manager -> flush();
-
-
-
-
-
-
 
 
         for($k = 1; $k <= 10; $k++){

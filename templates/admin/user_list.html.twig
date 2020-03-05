@@ -5,8 +5,8 @@
 {% block body %}
 
 <div class="container">
-    <h1>Gestion des produits</h1>
-    <a href="{{ path('admin_product_add') }}" class="btn btn-info" >Ajouter un produit</a>
+    <h1>Gestion des membres</h1>
+{#    <a href="#" class="btn btn-info" >Ajouter un produit</a>#}
     <div class="row">
         <table class="table table-bordered table-dark table-responsive-sm">
             <thead style="text-align: center">
@@ -24,19 +24,18 @@
                 </tr>
             </thead>
             <tbody>
-            {% for p in products %}
+            {% for u in users %}
                 <tr>
-                    <th scope="row">{{ p.id }}</th>
-                    <td>{{ p.title }}</td>
-                    <td>{{ p.description|slice(0, 20) }}...</td>
-                    <td>{{ p.stock }}</td>
-                    <td>{{ p.price ~ " €"}}</td>
-                    <td><img src="{{ asset('/photos/' ~ p.image) }}" height="80px" width="80px" style="margin-right: 30px"></td>
-                    <td>{{ p.size }}</td>
-                    <td>{{ p.color }}</td>
-                    <td>{{ p.brand }}</td>
-                    <td><a href="{{ path('admin_product_update', {id: p.id}) }}" class="btn btn-success">Modifier</a> </td>
-                    <td><a href="{{ path('admin_product_delete', {id: p.id}) }}" class="btn btn-danger">Supprimer</a></td>
+                    <th scope="row">{{ u.id }}</th>
+                    <td>{{ u.username }}</td>
+                    <td>{{ u.lastname }}...</td>
+                    <td>{{ u.firstname }}</td>
+                    <td>{{ u.email}}</td>
+{#                    <td>{{ u.birthday }}</td>#}
+                    <td>{{ u.address }}</td>
+                    <td>{{ u.city }}</td>
+{#                    <td><a href="{{ path('admin_product_update', {id: p.id}) }}" class="btn btn-success">Modifier</a> </td>#}
+{#                    <td><a href="{{ path('admin_product_delete', {id: p.id}) }}" class="btn btn-danger">Supprimer</a></td>#}
                 </tr>
             {% endfor %}
             </tbody>

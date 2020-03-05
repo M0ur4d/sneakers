@@ -33,6 +33,7 @@
                 <h1 class="my-4">Categories</h1>
                 <div class="list-group">
                     <div class="list-group">
+                        <a href="{{ path('home') }}" class="list-group-item">Toutes les categories</a>
                         {% for c in categories %}
                             <a href="{{ path('category', {slug:  c.slug} ) }}" class="list-group-item">{{ c.title | capitalize }}</a>
                         {% endfor %}
@@ -105,9 +106,9 @@
 
                 </div>
                 <!-- /.row -->
-                <div class="d-flex justify-content-center">
-                    {{ knp_pagination_render(products) }}</div>
-            </div>
+{#                <div class="d-flex justify-content-center">#}
+{#                    {{ knp_pagination_render(products) }}</div>#}
+{#            </div>#}
             <!-- /.col-lg-9 -->
 
         </div>

@@ -1,14 +1,184 @@
-{#{% extends 'base.html.twig' %}#}
+{% extends 'base.html.twig' %}
 
-{#{% block title %}Hello ProductController!{% endblock %}#}
+{% block title %}Fiche produits{% endblock %}
 
-{#{% block body %}#}
-Je suis la page d'accueil (qui affiche les produits)
+{% block body %}
 
-Produits
-    {{ dump(products) }}
 
- Catagories
-    {{ dump(categories) }}
+    <!-- Page Content -->
+    <div class="container" xmlns="http://www.w3.org/1999/html">
 
-{#{% endblock %}#}
+        <div class="row">
+
+            <!-- Post Content Column -->
+            <div class="col-lg-8">
+
+                <!-- Title -->
+                <h1 class="mt-4">{{ product.title }}</h1>
+
+                <!-- Author -->
+                <p class="lead">
+                    by
+                    <a href="#">{{ product.brand }}</a>
+                </p>
+
+                <hr>
+
+                <!-- Date/Time -->
+                <p>Posted on January 1, 2019 at 12:00 PM</p>
+
+                <hr>
+
+                <!-- Preview Image -->
+                <img class="img-fluid rounded" src="{{ asset('/photos/' ~ product.image) }}" alt="">
+
+                <hr>
+
+                <!-- Post Content -->
+                <p class="lead">{{ product.description | raw }}</p>
+
+
+                <blockquote class="blockquote">
+                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                    <footer class="blockquote-footer">Someone famous in
+                        <cite title="Source Title">Source Title</cite>
+                    </footer>
+                </blockquote>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, nostrum, aliquid, animi, ut quas placeat totam sunt tempora commodi nihil ullam alias modi dicta saepe minima ab quo voluptatem obcaecati?</p>
+
+                {% if product.stock > 9 %}
+                    <b class="text-success">Disponible</b>
+                {% elseif product.stock > 0 %}
+                    <b class="text-warning">Plus que {{ product.stock }} dispo</b>
+                {% else %}
+                    <b class="text-danger">Rupture de stock</b>
+                {% endif %}
+
+                <hr>
+
+                <!-- Comments Form -->
+                <div class="card my-4">
+                    <h5 class="card-header">Leave a Comment:</h5>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <textarea class="form-control" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Single Comment -->
+                <div class="media mb-4">
+                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                    <div class="media-body">
+                        <h5 class="mt-0">Commenter Name</h5>
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    </div>
+                </div>
+
+                <!-- Comment with nested comments -->
+                <div class="media mb-4">
+                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                    <div class="media-body">
+                        <h5 class="mt-0">Commenter Name</h5>
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+
+                        <div class="media mt-4">
+                            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                            <div class="media-body">
+                                <h5 class="mt-0">Commenter Name</h5>
+                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                            </div>
+                        </div>
+
+                        <div class="media mt-4">
+                            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                            <div class="media-body">
+                                <h5 class="mt-0">Commenter Name</h5>
+                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Sidebar Widgets Column -->
+            <div class="col-md-4">
+
+                <!-- Search Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Acheter</h5>
+                    <div class="card-body">
+                        <form method="post" action="{{ path('cart_add', {'id' : product.id }) }}">
+                        <div class="input-group">
+                            {% if product.stock > 1 %}
+                            <select name="qty" class="form-control">
+                                {% for i in 1..min(5, product.stock) %}
+                                <option>{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                             <span class="input-group-btn">
+                             <button class="btn btn-success" type="submit">Ajouter au panier</button>
+                             </span>
+                            {% else %}
+                                <p class="text-danger">Rupture de stock</p>
+                            {% endif %}
+                        </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Categories Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Categories &amp; Mots Clefs</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <ul class="list-unstyled mb-0">
+
+                                    {% for c in product.categories %}
+                                        <li>
+                                            <a href="{{ path ('category', {'slug' : c.slug}) }}">{{ c.title }}</a>
+                                        </li>
+                                    {% endfor %}
+
+                                </ul>
+                            </div>
+                            <div class="col-lg-6">
+                                <ul class="list-unstyled mb-0">
+                                    {% for c in product.categories %}
+                                        {% set tab = c.keywords|split(', ') %}
+                                        {% for kw in tab %}
+                                            <li>
+                                                <a href="{{ path('recherche') }}?s={{ kw }}">{{ kw }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Side Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Side Widget</h5>
+                    <div class="card-body">
+                        You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+{% endblock %}

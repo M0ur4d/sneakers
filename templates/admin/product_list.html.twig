@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Liste Produits{% endblock %}
+
+{% block body %}
+    Je suis la page d'ADMIN produits (qui affiche les produits)
+<div class="container">
+<br>
+    <div class="row">
+    <table class="table table-bordered table-primary table-responsive-sm">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Price</th>
+                <th scope="col">Image</th>
+                <th scope="col">Size</th>
+                <th scope="col">color</th>
+                <th scope="col">brand</th>
+                <th scope="col" colspan="3">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for p in products %}
+            <tr>
+                <th scope="row">{{ p.id }}</th>
+                <td>{{ p.title }}</td>
+                <td>{{ p.description }}</td>
+                <td>{{ p.stock }}</td>
+                <td>{{ p.price ~ " €"}}</td>
+                <td><img src="{{ asset('/photos/' ~ p.image) }}" height="80px" width="80px" style="margin-right: 30px"></td>
+                <td>{{ p.size }}</td>
+                <td>{{ p.color }}</td>
+                <td>{{ p.brand }}</td>
+                <td><a href="#"><i class='fa fa-pen'></i></a> </td>
+                <td><a href="#"><i class='fa fa-trash'></i></a></td>
+
+            </tr>
+
+        {% endfor %}
+        </tbody>
+
+    </table>
+    </div></div>
+
+{% endblock %}

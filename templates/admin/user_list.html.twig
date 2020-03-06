@@ -4,22 +4,25 @@
 
 {% block body %}
 
-<div class="container">
+
     <h1>Gestion des membres</h1>
 {#    <a href="#" class="btn btn-info" >Ajouter un produit</a>#}
     <div class="row">
-        <table class="table table-bordered table-dark table-responsive-sm">
+        <table class="table table-bordered table-dark table-responsive-sm" style="font-size: smaller">
             <thead style="text-align: center">
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Pseudo</th>
                     <th scope="col">Nom</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Stock</th>
-                    <th scope="col">Prix</th>
-                    <th scope="col">Image</th>
-                    <th scope="col">Taille</th>
-                    <th scope="col">Couleur</th>
-                    <th scope="col">Marque</th>
+                    <th scope="col">Prenom</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Date de naissance</th>
+                    <th scope="col">Adresse</th>
+                    <th scope="col">Ville</th>
+                    <th scope="col">Telephone</th>
+                    <th scope="col">Sexe</th>
+                    <th scope="col">Statut</th>
+                    <th scope="col">Date d'enregistrement</th>
                     <th scope="col" colspan="3" >Actions</th>
                 </tr>
             </thead>
@@ -28,20 +31,34 @@
                 <tr>
                     <th scope="row">{{ u.id }}</th>
                     <td>{{ u.username }}</td>
-                    <td>{{ u.lastname }}...</td>
+                    <td>{{ u.lastname }}</td>
                     <td>{{ u.firstname }}</td>
                     <td>{{ u.email}}</td>
-{#                    <td>{{ u.birthday }}</td>#}
-                    <td>{{ u.address }}</td>
+                    <td>{{ u.birthday|date('d/m/Y') }}</td>
+                    <td>{{ u.address|slice(0, 20) }}</td>
                     <td>{{ u.city }}</td>
-{#                    <td><a href="{{ path('admin_product_update', {id: p.id}) }}" class="btn btn-success">Modifier</a> </td>#}
-{#                    <td><a href="{{ path('admin_product_delete', {id: p.id}) }}" class="btn btn-danger">Supprimer</a></td>#}
+                    <td>{{ u.tel }}</td>
+                    <td>
+                        {% if u.sexe == "f" %}Femme
+                        {% elseif u.sexe == "m"%}Homme
+                        {% else %}Autre
+                        {% endif %}
+                    </td>
+                    <td>
+                            {% if u.role == "ROLE_USER" %}Membre
+                            {% else %}Admin
+                            {% endif %}
+                        </td>
+
+                    <td>{{ u.registerDate|date('d/m/Y') }}</td>
+                    <td><a href="{{ path('admin_product_update', {id: u.id}) }}" class="btn btn-success">Modifier</a> </td>
+                    <td><a href="{{ path('admin_product_delete', {id: u.id}) }}" class="btn btn-danger">Supprimer</a></td>
                 </tr>
             {% endfor %}
             </tbody>
 
         </table>
     </div>
-</div>
+
 
 {% endblock %}

@@ -57,7 +57,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdown2">
                                     <a href="{{ path('admin_product') }}" class="dropdown-item">Gestion des produits</a>
-                                    <a href="" class="dropdown-item">Gestion des membres</a>
+                                    <a href="{{ path('admin_user') }}" class="dropdown-item">Gestion des membres</a>
                                     <a href="" class="dropdown-item">Gestion des commandes</a>
                                 </div>
                             </li>
@@ -188,8 +188,9 @@
         {% for message in app.flashes('error') %}
             <div class="alert alert-danger">{{ message|raw }}</div>
         {% endfor %}
+        <div class="container">
+            {% block body %}{% endblock %}</div>
 
-{% block body %}{% endblock %}
 {% block javascripts %}{% endblock %}
 
 

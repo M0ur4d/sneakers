@@ -25,7 +25,7 @@
 {#    </div>#}
 
     <!-- Page Content -->
-    <div class="container">
+
         <div class="row">
 
             <div class="col-lg-3">
@@ -96,6 +96,24 @@
                                 <b class="text-danger">Rupture de stock</b>
                             {% endif %}
                             </div>
+                            <div class="card-body">
+                                <form method="post" action="{{ path('cart_add', {'id' : p.id }) }}">
+                                    <div class="input-group">
+                                        {% if p.stock > 1 %}
+                                            <select name="qty" class="form-control">
+                                                {% for i in 1..min(5, p.stock) %}
+                                                    <option>{{ i }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <span class="input-group-btn">
+                             <button class="btn btn-success" type="submit">Ajouter au panier</button>
+                             </span>
+                                        {% else %}
+                                            <p class="text-danger">Rupture de stock</p>
+                                        {% endif %}
+                                    </div>
+                                </form>
+                            </div>
 
                             <div class="card-footer">
                                 <a href="{{ path('product', { 'slug' : p.slug }) }}" class="btn btn-warning">Voir le produit</a>
@@ -114,7 +132,5 @@
         </div>
         <!-- /.row -->
 
-    </div>
-    <!-- /.container -->
 
 {% endblock %}

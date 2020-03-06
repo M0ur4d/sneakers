@@ -3,7 +3,7 @@
 {% block title %}Hello OrderController!{% endblock %}
 
 {% block body %}
-<div class="container">
+
     <br>
 <div class="row">
     {% if app.session.get('panier')  %}
@@ -29,11 +29,21 @@
                 <td><img src="{{ asset('/photos/' ~ item.product.image) }}" height="50px" width="50px" style="margin-right: 30px"></td>
                 <td>{{ item.product.title }}</td>
                 <td>{{ item.product.price | number_format(2, ',', ' ') }}€</td>
-                <td>{{ item.quantity}}</td>
+                <td>
+                    <form action="{{ path('cart_item_update_quantity', {id: item.product.id}) }}" method="post">
+                        <div class="input-group input-group-sm">
+                            <input type="number" class="form-control" value="{{ item.quantity }}" name="qt">
+                            <div>
+                                <button type="submit" class="btn btn-info">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </td>
                 {% set totalProduct = item.product.price * item.quantity %}
                 <td>{{ totalProduct | number_format(2, ',', ' ') }}€</td>
-                <td><a href="{{  path('cart_item_delete', {'key'
-                        : key}) }}"><i class='fa fa-trash'></i></a></td>
+                <td><a href="{{  path('cart_item_delete', {'key': key}) }}"><i class='fa fa-trash'></i></a></td>
             </tr>
             {% set totalPanier = totalPanier + totalProduct %}
             {% endfor %}
@@ -43,7 +53,7 @@
                 <td><a href="{{ path('cart_delete') }}">Vider le panier</a></td>
             </tr>
             <tr>
-                <td colspan="6"><a href="#">Continuer le panier et passez a la suite</a></td>
+                <td colspan="6"><a href="{{ path('cart_checkout') }}">Continuer le panier et passez a la suite</a></td>
             </tr>
         </tbody>
 
@@ -52,7 +62,7 @@
         <img src="{{ asset('/photos/panier-vide.gif') }}" >
     {% endif %}
 </div>
-</div>
+
 
 
 {% endblock %}

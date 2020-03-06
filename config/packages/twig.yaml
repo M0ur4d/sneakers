@@ -7,3 +7,5 @@ twig:
         - 'bootstrap_4_layout.html.twig'
     paths:
         '%kernel.project_dir%/vendor/knplabs/knp-paginator-bundle/templates': KnpPaginator
+    globals:
+        stripe_public_key: '%env(STRIPE_PUBLIC_KEY)%'

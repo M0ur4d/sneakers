@@ -32,6 +32,11 @@ class ProductOrder
      */
     private $cde;
 
+    /**
+     * @ORM\Column(type="decimal", precision=6, scale=2)
+     */
+    private $amount;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +74,18 @@ class ProductOrder
     public function setCde(?Order $cde): self
     {
         $this->cde = $cde;
+
+        return $this;
+    }
+
+    public function getAmount(): ?string
+    {
+        return $this->amount;
+    }
+
+    public function setAmount(string $amount): self
+    {
+        $this->amount = $amount;
 
         return $this;
     }

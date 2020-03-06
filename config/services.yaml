@@ -29,3 +29,6 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    Flosch\Bundle\StripeBundle\Stripe\StripeClient:
+        tags: ['flosch_stripe_client']
+        arguments: ['%env(STRIPE_PUBLIC_KEY)%']

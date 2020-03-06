@@ -132,7 +132,6 @@ class AdminController extends AbstractController
     {
         $users = $pRepo->findAll();
 
-
         return $this->render('admin/user_list.html.twig', [
             'users' => $users,
         ]);

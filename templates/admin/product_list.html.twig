@@ -4,11 +4,11 @@
 
 {% block body %}
 
-<div class="container">
+
     <h1>Gestion des produits</h1>
     <a href="{{ path('admin_product_add') }}" class="btn btn-info" >Ajouter un produit</a>
     <div class="row">
-        <table class="table table-bordered table-dark table-responsive-sm">
+        <table class="table table-bordered table-dark table-responsive-sm " style="font-size: smaller">
             <thead style="text-align: center">
                 <tr>
                     <th scope="col">#</th>
@@ -43,6 +43,6 @@
 
         </table>
     </div>
-</div>
+
 
 {% endblock %}

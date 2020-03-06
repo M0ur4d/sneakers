@@ -6,6 +6,8 @@ use App\Entity\User;
 use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -81,5 +83,20 @@ class UserController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/test-email", name="test_email")
+     */
+
+    public function testEmail(MailerInterface $mailer){
+
+        $email = (new Email())
+            ->from('johndoe@exemple.fr')
+            ->to('toto@exemple.fr')
+            ->subject('Test Mailer Symfony')
+            ->text('Envoyé depuis Symfony !');
+
+        $mailer->send($email);
+        dd('Mail envoyé !');
+    }
 
 }
